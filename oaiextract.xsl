@@ -6,15 +6,19 @@
   <xsl:output method="xml" indent="yes"/>
 
   <xsl:template match="/Response">
-    <xsl:apply-templates select="ListRecords/oai:record"/>
-  </xsl:template>
-  <xsl:template match="/Records">
-    <xsl:apply-templates select="oai:record"/>
-  </xsl:template>
-  <xsl:template match="oai:record">
     <records>
-      <xsl:copy-of select="oai:metadata/*"/>
+      <xsl:apply-templates select="ListRecords/oai:record"/>
     </records>
+  </xsl:template>
+
+  <xsl:template match="/Records">
+    <records>
+      <xsl:apply-templates select="oai:record"/>
+    </records>
+  </xsl:template>
+
+  <xsl:template match="oai:record">
+      <xsl:copy-of select="oai:metadata/*"/>
   </xsl:template>
 </xsl:transform>  
 
