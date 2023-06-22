@@ -41,12 +41,16 @@ Extract the LIDO records from their OAI-PMH envelope
 
     xsltproc oaiextract.xsl example.xml > example.lido.xml
 
-#### Statistics
+#### Statistics and inspection
     
 Count XML pathes
 
     xmlstarlet el example.lido.xml | sed s/^.*lido:lido\/// | sort |  uniq -c
     
+#### Extract some XML elements
+
+    xmlstarlet sel -N lido=http://www.lido-schema.org -t -c "//lido:descriptiveMetadata/lido:objectClassificationWrap" example.lido.xml 
+
 #### Convert to RDF
 
 A minimal XSLT script to convert LIDO to RDF/XML is included
@@ -67,6 +71,7 @@ Better use another RDF serialization, at least NTriples:
 
 ### Projects and tools
 
+- kenom data is already being conerted into RDF at Nomisma.org (see download at <http://numismatics.org/rdf/kenom.rdf>)
 - Europeana converts LIDO to EDM
 - <https://github.com/ubleipzig/lido-cli> LIDO to JSON for Solr
 - <https://www.cidoc-crm.org/mapping-tools> X3ML, supports LIDO to CRM but probably very shallow: <https://www.cidoc-crm.org/Resources/the-lido-model> 
