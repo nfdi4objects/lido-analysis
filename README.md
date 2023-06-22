@@ -61,6 +61,8 @@ Better use another RDF serialization, at least NTriples:
 
     rapper -i rdfxml example.rdf > example.nt
 
+Alternative: The conversion script to transform KENOM-LIDO to Numisma Data Model can be found at <https://github.com/AmericanNumismaticSociety/migration_scripts/blob/master/kenom/process-oai-pmh.php> (Apache License).
+
 ## References
 
 ### Publications

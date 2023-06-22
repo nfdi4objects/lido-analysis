@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns="http://www.lido-schema.org"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:doap="http://usefulinc.com/ns/doap#"
+    xmlns:edm="http://www.europeana.eu/schemas/edm/"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
     xmlns:lido="http://www.lido-schema.org"
+    xmlns:nm="http://nomisma.org/id/"
+    xmlns:nmo="http://nomisma.org/ontology#"
+    xmlns:oai="http://www.openarchives.org/OAI/2.0/"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-    xmlns:nmo="http://nomisma.org/ontology#"
-xmlns:oai="http://www.openarchives.org/OAI/2.0/">
+    xmlns:svcs="http://rdfs.org/sioc/services#"
+    xmlns:void="http://rdfs.org/ns/void#"
+  >
   <xsl:strip-space elements="*"/>
   <xsl:output method="xml" indent="yes"/>
 
@@ -18,12 +27,12 @@ xmlns:oai="http://www.openarchives.org/OAI/2.0/">
   </xsl:template>
 
   <xsl:template match="lido:lido">
-    <rdf:Description>
+    <nmo:NumismaticObject>
        <xsl:attribute name="rdf:about">
-          <xsl:value-of select="lido:objectPublishedID"/>
+          <xsl:value-of select="lido:objectPublishedID[@lido:type='http://terminology.lido-schema.org/identifier_type/uri']"/>
        </xsl:attribute>
        <xsl:apply-templates select="*"/>
-    </rdf:Description>
+    </nmo:NumismaticObject>
    </xsl:template>            
 
    <xsl:template match="lido:category">
