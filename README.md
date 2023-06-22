@@ -72,6 +72,7 @@ Better use another RDF serialization, at least NTriples:
 ### Projects and tools
 
 - kenom data is already being conerted into RDF at Nomisma.org (see download at <http://numismatics.org/rdf/kenom.rdf>)
+- http://kerameikos.org/ defines an ontology for pottery (there are connections to nomisma.org)
 - Europeana converts LIDO to EDM
 - <https://github.com/ubleipzig/lido-cli> LIDO to JSON for Solr
 - <https://www.cidoc-crm.org/mapping-tools> X3ML, supports LIDO to CRM but probably very shallow: <https://www.cidoc-crm.org/Resources/the-lido-model> 
