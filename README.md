@@ -1,6 +1,18 @@
 # Analysis and transformation of LIDO data
 
-> [Collect](#collect-lido-records), analyze, validate and transform [LIDO](https://format.gbv.de/lido) from various sources
+> Collect, analyze, validate and transform [LIDO](https://format.gbv.de/lido) from various sources
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Collect](#collect)
+    - [Analyze](#analyze)
+    - [Validate](#validate)
+    - [Transform](#transform)
+- [References](#references)
+    - [Publications](#publications)
+    - [Projects and applications](#projects-and-applications)
 
 ## Installation
 
@@ -15,7 +27,7 @@ On Ubuntu you can run `sudo ./install.sh` to install these dependencies.
 
 ## Usage
 
-### Collect LIDO records
+### Collect
 
 LIDO records are either harvested via OAI-PMH or manually put in form of files. 
 
@@ -37,15 +49,15 @@ You can then copy the harvested records into a single XML file:
 
     metha-cat -format lido https://www.kenom.de/oai/ > example.xml
 
+Extract the LIDO records from their OAI-PMH envelope
+
+    xsltproc oaiextract.xsl example.xml > example.lido.xml
+
 Alternatively list all files to process sequentially
 
     find $(metha-sync -dir -format lido https://www.kenom.de/oai/) -name "*.gz" | xargs unpigz -c
 
-### Process LIDO files
-
-Extract the LIDO records from their OAI-PMH envelope
-
-    xsltproc oaiextract.xsl example.xml > example.lido.xml
+### Analyze
 
 #### Statistics and inspection
     
@@ -57,6 +69,18 @@ Count XML pathes
 
     xmlstarlet sel -N lido=http://www.lido-schema.org -t -c "//lido:descriptiveMetadata/lido:objectClassificationWrap" example.lido.xml 
 
+### Validate
+
+*TODO* (<https://github.com/gbv/lido-analysis/issues/2>)
+
+
+### Transform
+
+LIDO can be used as such but transformation to other formats and models makes sense for both data integration and analysis. Two basic forms of target structures exist:
+
+- Flat data for simplified reuse and indexing in as search index (probably JSON)
+- Graph data for knowlege graphs (probably RDF)
+ 
 #### Convert to RDF
 
 A minimal XSLT script to convert LIDO to RDF/XML is included
@@ -69,9 +93,6 @@ Better use another RDF serialization, at least NTriples:
 
 Alternative: The conversion script to transform KENOM-LIDO to Numisma Data Model can be found at <https://github.com/AmericanNumismaticSociety/migration_scripts/blob/master/kenom/process-oai-pmh.php> (Apache License).
 
-### Validate LIDO records
-
-*TODO* (<https://github.com/gbv/lido-analysis/issues/2>)
 
 ## References
 
@@ -81,11 +102,13 @@ Alternative: The conversion script to transform KENOM-LIDO to Numisma Data Model
 - Antje Niemann (2019): Ein Knowledge Graph für wissenschaftliche Sammlungen : Generierung von Linked Open Data für heterogene museale Sammlungen auf der Basis des ASCH-Modells. <https://doi.org/10.15771/MA_2019_1> 
 - Eleni Tsalapati, Nikolaos Simou,Nasos Drosopoulos and Regine Stein (2012): Evolving LIDO based aggregations into Linked Data. <http://www.image.ntua.gr/php/pub_details.php?code=767>
 
-### Projects and tools
+### Projects and applications
 
 - kenom data is already being conerted into RDF at Nomisma.org (see download at <http://numismatics.org/rdf/kenom.rdf>)
 - http://kerameikos.org/ defines an ontology for pottery (there are connections to nomisma.org)
 - Europeana converts LIDO to EDM
 - <https://github.com/ubleipzig/lido-cli> LIDO to JSON for Solr
 - <https://www.cidoc-crm.org/mapping-tools> X3ML, supports LIDO to CRM but probably very shallow: <https://www.cidoc-crm.org/Resources/the-lido-model> 
+- Data integration with LIDO is examined in NFDI
 - ...
+
