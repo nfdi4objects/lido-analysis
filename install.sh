@@ -1,9 +1,16 @@
 #!/usr/bin/bash
 set -e
 
-apt-get install jq wget pigz xsltproc raptor2-utils
+# general tools
+apt-get install jq wget pigz
 
-# metha
+# XML processing
+apt-get install xsltproc libxml2-utils xmlstarlet
+
+# RDF processing
+apt-get install raptor2-utils
+
+# metha OAI-PMH client
 set $(curl -s https://api.github.com/repos/miku/metha/releases/latest \
     | jq -r '.assets[]|select(.name|match(".deb$"))|[.browser_download_url,.name]|@tsv')
 wget -O $2 $1

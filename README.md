@@ -6,12 +6,14 @@ Install required tools:
 
 - [metha](https://github.com/miku/metha) OAI-PMH client
 - `pigz` for faster decompression
-- `xsltproc` for XSLT
+- `xsltproc`, `xmllint` and `xmlstarlet` for XML processing
 - `rapper` from `raptor-utils` for RDF processing
 
 On Ubuntu you can run `sudo ./install.sh` to install these dependencies.
 
 ## Usage
+
+### Harvest LIDO files
 
 It's possible to download allo LIDO records from kenom this way:
 
@@ -29,9 +31,23 @@ You can then copy the harvested records into a single XML file:
 
     metha-cat -format lido https://www.kenom.de/oai/ > example.xml
 
-And finally extract the LIDO records from their OAI-PMH envelope
+Alternatively list all files to process sequentially
+
+    find $(metha-sync -dir -format lido https://www.kenom.de/oai/) -name "*.gz" | xargs unpigz -c
+
+### Process LIDO files
+
+Extract the LIDO records from their OAI-PMH envelope
 
     xsltproc oaiextract.xsl example.xml > example.lido.xml
+
+#### Statistics
+    
+Count XML pathes
+
+    xmlstarlet el example.lido.xml | sed s/^.*lido:lido\/// | sort |  uniq -c
+    
+#### Convert to RDF
 
 A minimal XSLT script to convert LIDO to RDF/XML is included
 
