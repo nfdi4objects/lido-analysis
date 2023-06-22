@@ -9,6 +9,8 @@ Install required tools:
 - `xsltproc` for XSLT
 - `rapper` from `raptor-utils` for RDF processing
 
+On Ubuntu you can run `sudo ./install.sh` to install these dependencies.
+
 ## Usage
 
 It's possible to download allo LIDO records from kenom this way:
